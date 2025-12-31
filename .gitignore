@@ -1,0 +1,465 @@
+# ═══════════════════════════════════════════════════════════════
+# Python
+# ═══════════════════════════════════════════════════════════════
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# ═══════════════════════════════════════════════════════════════
+# IDEs & Editors
+# ═══════════════════════════════════════════════════════════════
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim
+.vim/
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+.vimrc
+.swp
+*~
+.*.sw[0-9]*
+.DS_Store
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Atom
+.atom/
+
+# VS
+.vs/
+
+# IntelliJ
+*.swp
+*.swo
+*~
+
+# ═══════════════════════════════════════════════════════════════
+# Operating System Files
+# ═══════════════════════════════════════════════════════════════
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.lnk
+*.msi
+*.msix
+*.msdn
+
+# Linux
+.directory
+.nfs*
+
+# ═══════════════════════════════════════════════════════════════
+# Project Specific
+# ═══════════════════════════════════════════════════════════════
+
+# Data files
+*.csv
+*.tsv
+*.xlsx
+*.xls
+data/
+raw_data/
+processed_data/
+pipeline/
+*.json
+!api_flask/drift_baseline.json
+!api_flask/config/*.yaml
+
+# Models
+*.joblib
+*.pkl
+*.pickle
+*.h5
+*.pth
+*.pt
+models/
+*.model
+
+# Large files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+*.iso
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+cache/
+.cache/
+
+# Logs
+logs/
+*.log
+
+# Drift baseline backup
+*_baseline.backup.*
+
+# ═══════════════════════════════════════════════════════════════
+# Docker
+# ═══════════════════════════════════════════════════════════════
+
+# Docker volumes
+docker/volumes/
+
+# Docker logs
+docker/logs/
+
+# ═══════════════════════════════════════════════════════════════
+# Git
+# ═══════════════════════════════════════════════════════════════
+
+# Local branch configuration
+.git/
+.gitmodules
+*.patch
+
+# ═══════════════════════════════════════════════════════════════
+# CI/CD
+# ═══════════════════════════════════════════════════════════════
+
+# GitHub Actions
+.github/workflows/*.local
+.github/workflows/*.tmp
+
+# Jenkins
+.jenkins/
+
+# Travis CI
+.travis/
+
+# ═══════════════════════════════════════════════════════════════
+# Database
+# ═══════════════════════════════════════════════════════════════
+
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# PostgreSQL
+*.pgpass
+
+# MySQL
+.mysql_history
+
+# ═══════════════════════════════════════════════════════════════
+# Streamlit Specific
+# ═══════════════════════════════════════════════════════════════
+
+# Streamlit cache
+.streamlit/cache/
+.streamlit/*.json
+streamlit_cache/
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# ═══════════════════════════════════════════════════════════════
+# Python Package Manager
+# ═══════════════════════════════════════════════════════════════
+
+# Poetry
+poetry.lock
+
+# Conda
+environment.yml
+conda-lock.yml
+
+# ═══════════════════════════════════════════════════════════════
+# Documentation
+# ═══════════════════════════════════════════════════════════════
+
+# Sphinx
+docs/_build/
+site/
+
+# MkDocs
+mkdocs.yml
+
+# ═══════════════════════════════════════════════════════════════
+# Build Artifacts
+# ═══════════════════════════════════════════════════════════════
+
+# Pytest
+.pytest_cache/
+.tox/
+
+# Coverage
+.coverage
+coverage.xml
+htmlcov/
+
+# ═══════════════════════════════════════════════════════════════
+# Node.js (si frontend Node)
+# ═══════════════════════════════════════════════════════════════
+
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# ═══════════════════════════════════════════════════════════════
+# Secrets & Credentials
+# ═══════════════════════════════════════════════════════════════
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.production.local
+
+# API Keys
+credentials.json
+secrets.json
+api_key.txt
+*.key
+*.pem
+
+# ═══════════════════════════════════════════════════════════════
+# Testing
+# ═══════════════════════════════════════════════════════════════
+
+# Test reports
+test-results/
+test-report.html
+xunit-results.xml
+
+# ═══════════════════════════════════════════════════════════════
+# OS & IDE Generated Files
+# ═══════════════════════════════════════════════════════════════
+
+# macOS
+.DS_Store
+*.swp
+*~
+
+# Windows
+*.lnk
+Desktop.ini
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+*.swp
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# ═══════════════════════════════════════════════════════════════
+# Project Artifacts
+# ═══════════════════════════════════════════════════════════════
+
+# Generated files
+generated/
+output/
+results/
+
+# Test outputs
+test_output/
+test_results/
+
+# User-specific files
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# ═══════════════════════════════════════════════════════════════
+# Exceptions - Files to Keep
+# ═══════════════════════════════════════════════════════════════
+
+# Keep Docker files
+!dockerfile
+!docker-compose.yml
+!.dockerignore
+
+# Keep config files
+!api_flask/config/
+!.streamlit/
+
+# Keep documentation
+!README.md
+!DOCKER*.md
+!DATA_DRIFT*.md
+!DRIFT*.md
+
+# Keep requirements
+!requirements.txt
+
+# Keep scripts
+!Makefile
+!*.ps1
+!test-docker.*
+
+# ═══════════════════════════════════════════════════════════════
+# Comments
+# ═══════════════════════════════════════════════════════════════
+
+# NOTE: This .gitignore is optimized for:
+# - Python 3.11 projects
+# - Streamlit applications
+# - Flask backend
+# - Docker deployments
+# - ML/Data Science workflows
+#
+# Update as needed for your specific project structure
