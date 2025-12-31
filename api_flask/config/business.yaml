@@ -1,0 +1,12 @@
+# Configuration des seuils de décision
+thresholds:
+  accept: 0.2      # Probabilité en dessous de laquelle on accepte la transaction
+  reject: 0.41      # Probabilité au-dessus de laquelle on rejette la transaction
+  # Entre 0.3 et 0.7 : REVIEW (révision manuelle)
+
+# Configuration des coûts business
+costs:
+  fp: 10.0         # Coût d'un faux positif (rejeter une transaction valide)
+  fn: 100.0        # Coût d'un faux négatif (accepter une fraude)
+  tp: 0            # Coût d'un vrai positif (rejeter une fraude)
+  tn: 0            # Coût d'un vrai négatif (accepter une transaction valide)

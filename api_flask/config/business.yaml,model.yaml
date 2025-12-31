@@ -1,0 +1,7 @@
+thresholds:
+  accept: 0.2
+  reject: 0.41
+
+costs:
+  fp: 20
+  fn: 500
