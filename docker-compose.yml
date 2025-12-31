@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  # ═══════════════════════════════════════════════════════════════
+  # Flask API Backend
+  # ═══════════════════════════════════════════════════════════════
+  api:
+    build:
+      context: .
+      dockerfile: api_flask/dockerfile
+    container_name: fraude_api
+    ports:
+      - "5000:5000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - FLASK_ENV=production
+      - FLASK_APP=api_flask/app.py
+    volumes:
+      # Montages en lecture seule pour la configuration
+      - ./api_flask/config:/app/api_flask/config:ro
+      # Volume pour la baseline (permet la persistance)
+      - api_baseline:/app/api_flask
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - fraude_network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ═══════════════════════════════════════════════════════════════
+  # Streamlit Frontend
+  # ═══════════════════════════════════════════════════════════════
+  streamlit:
+    build:
+      context: .
+      dockerfile: streamlit/dockerfile
+    container_name: fraude_streamlit
+    ports:
+      - "8501:8501"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+    volumes:
+      # Configuration Streamlit
+      - ./.streamlit:/app/.streamlit:ro
+      # Cache Streamlit
+      - streamlit_cache:/home/appuser/.streamlit
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - fraude_network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# ═══════════════════════════════════════════════════════════════
+# Volumes Persistants
+# ═══════════════════════════════════════════════════════════════
+volumes:
+  api_baseline:
+    driver: local
+  streamlit_cache:
+    driver: local
+
+# ═══════════════════════════════════════════════════════════════
+# Réseau
+# ═══════════════════════════════════════════════════════════════
+networks:
+  fraude_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
