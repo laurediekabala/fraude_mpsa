@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
-from services.api_client import explain
-import time
 
 def show_page():
     st.markdown("## 📈 Explications SHAP")
@@ -14,48 +12,48 @@ def show_page():
     # Vérifier s'il y a des données SHAP en session
     if 'last_shap_values' not in st.session_state or st.session_state.last_shap_values is None:
         st.warning("⚠️ Aucune prédiction effectuée. Allez à l'onglet 'Accueil' pour faire une prédiction d'abord!")
-        st.markdown("---")
-        st.subheader("💡 Guide SHAP")
-        st.markdown("""
-        **Qu'est-ce que SHAP?**
-        - SHAP (SHapley Additive exPlanations) explique comment chaque variable contribue à la prédiction
-        
-        **Interprétation:**
-        - **Valeurs positives (rouge)** → augmentent la probabilité de fraude 🔴
-        - **Valeurs négatives (bleu)** → diminuent la probabilité de fraude 🔵
-        - **Plus grande magnitude** → plus d'impact sur la prédiction 📊
-        """)
         return
     
-    shap_values = st.session_state.last_shap_values
-    feature_names = st.session_state.get('last_feature_names', [])
+    shap_data = st.session_state.last_shap_values
     
-    # Convertir en liste si nécessaire
-    if isinstance(shap_values, np.ndarray):
-        shap_values = shap_values.tolist()
+    # Extraire les features et valeurs
+    feature_names = []
+    shap_values_list = []
     
-    if not isinstance(shap_values, list):
-        shap_values = [shap_values]
-    
-    if not isinstance(feature_names, list):
-        feature_names = list(feature_names)
-    
-    # Assurer que les longueurs correspondent
-    if len(feature_names) != len(shap_values):
-        st.warning(f"⚠️ Mismatch de données: {len(feature_names)} features vs {len(shap_values)} SHAP values")
-        st.write(f"Features: {feature_names}")
-        st.write(f"SHAP values: {shap_values}")
+    if isinstance(shap_data, dict):
+        # Cas 1 : {"shap_values": {features_dict}}
+        if 'shap_values' in shap_data and isinstance(shap_data['shap_values'], dict):
+            shap_dict = shap_data['shap_values']
+            feature_names = list(shap_dict.keys())
+            shap_values_list = [float(v) for v in shap_dict.values()]
         
-        # Ajuster à la longueur la plus courte
-        min_len = min(len(feature_names), len(shap_values))
-        feature_names = feature_names[:min_len]
-        shap_values = shap_values[:min_len]
+        # Cas 2 : {feature: shap_value, ...} (dictionnaire simple)
+        else:
+            first_value = next(iter(shap_data.values())) if shap_data else None
+            
+            if isinstance(first_value, (int, float)):
+                feature_names = list(shap_data.keys())
+                shap_values_list = [float(v) for v in shap_data.values()]
+            else:
+                st.error(f"❌ Format inattendu: {type(shap_data)}")
+                st.write(shap_data)
+                return
+    else:
+        st.error(f"❌ Format inattendu: {type(shap_data)}")
+        st.write(shap_data)
+        return
     
-    # Créer un DataFrame pour les SHAP values
+    if not feature_names or not shap_values_list:
+        st.error("❌ Impossible d'extraire les données SHAP")
+        return
+    
+    st.success(f"✅ {len(feature_names)} features extraites")
+    
+    # Créer un DataFrame
     shap_df = pd.DataFrame({
         'Feature': feature_names,
-        'SHAP Value': shap_values,
-        'Abs Value': np.abs(shap_values)
+        'SHAP Value': shap_values_list,
+        'Abs Value': np.abs(shap_values_list)
     }).sort_values('Abs Value', ascending=True)
     
     # 1. Graphique en barres horizontal

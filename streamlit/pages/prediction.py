@@ -78,15 +78,23 @@ def show_page():
                         #st.write("DEBUG - Réponse proba:", proba)
                         #st.write("DEBUG - Type de expl:", type(expl))
                         #st.write("DEBUG - Contenu expl:", expl)
-                        # Sauvegarder les résultats en session state pour la page SHAP
-                        if isinstance(expl, dict) and 'shap_values' in expl:
-                            st.session_state.last_shap_values = expl['shap_values']
-                        elif isinstance(expl, list):
-                            st.session_state.last_shap_values = expl
-                        else:
-                            st.session_state.last_shap_values = []
                         
-                        st.session_state.last_feature_names = list(data.keys())
+                        # Traiter les SHAP values
+                        if isinstance(expl, dict):
+                             # C'est déjà un dictionnaire
+                            st.session_state.last_shap_values = expl
+                            st.session_state.last_feature_names = list(expl.keys())
+                        elif isinstance(expl, list) and len(expl) > 0:
+                             # C'est une liste
+                            if isinstance(expl[0], dict):
+                               st.session_state.last_shap_values = expl[0]
+                               st.session_state.last_feature_names = list(expl[0].keys())
+                            else:
+                               st.session_state.last_shap_values = expl
+                               st.session_state.last_feature_names = [f"Feature_{i}" for i in range(len(expl))]
+                        else:
+                             st.session_state.last_shap_values = expl
+                             st.session_state.last_feature_names = list(data.keys()) if isinstance(data, dict) else []
                         
                         # Sauvegarder dans l'historique
                         if 'prediction_history' not in st.session_state:
