@@ -147,12 +147,12 @@ docker-compose up --build -d
 ```bash
 # Terminal 1: Démarrer l'API Flask
 cd E:\fraude_mpsa
-python api_flask/app.py
+python api_flask/app.py nous avons utilisé render pour déployer l'API Flask
 
 # Output: * Running on http://localhost:5000
 
 # Terminal 2: Démarrer le Dashboard Streamlit
-streamlit run streamlit/app.py
+streamlit run streamlit/app.py pour le dashboard nous avons utilisé Streamlit Cloud
 
 # Output: You can now view your Streamlit app in your browser
 ```

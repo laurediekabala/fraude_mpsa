@@ -2,7 +2,7 @@ import os
 import requests
 import streamlit as st
 
-API_URL = os.environ.get('API_URL', 'http://localhost:5000')
+API_URL = "https://fraude-mpsa.onrender.com"
 
 def predict(data):
     try:
