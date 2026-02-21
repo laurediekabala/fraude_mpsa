@@ -218,15 +218,10 @@ pipeline/
 !api_flask/config/*.yaml
 
 # Models
-*.joblib
-*.pkl
-*.pickle
+
 *.h5
 *.pth
 *.pt
-models/
-*.model
-
 # Large files
 *.zip
 *.tar

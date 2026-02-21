@@ -1,7 +1,8 @@
+import os
 import requests
 import streamlit as st
 
-API_URL = "http://localhost:5000"
+API_URL = os.environ.get('API_URL', 'http://localhost:5000')
 
 def predict(data):
     try:
