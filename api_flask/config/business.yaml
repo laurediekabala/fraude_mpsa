@@ -1,12 +1,17 @@
-# Configuration des seuils de décision
-thresholds:
-  accept: 0.2      # Probabilité en dessous de laquelle on accepte la transaction
-  reject: 0.41      # Probabilité au-dessus de laquelle on rejette la transaction
-  # Entre 0.3 et 0.7 : REVIEW (révision manuelle)
+# ======================================================
+# Configuration métier – Moteur de décision fraude
+# ======================================================
 
-# Configuration des coûts business
+thresholds:
+  accept: 0.30     # En dessous → ACCEPT
+  review: 0.70     # Entre accept et review → REVIEW
+                   # Au-dessus → REJECT
+
+# ======================================================
+# Coûts business (en dollars)
+# ======================================================
+
 costs:
-  fp: 10.0         # Coût d'un faux positif (rejeter une transaction valide)
-  fn: 100.0        # Coût d'un faux négatif (accepter une fraude)
-  tp: 0            # Coût d'un vrai positif (rejeter une fraude)
-  tn: 0            # Coût d'un vrai négatif (accepter une transaction valide)
+  fp: 50.0         # Faux positif (transaction valide rejetée)
+  fn: 500.0        # Faux négatif (fraude acceptée)
+  manual_review: 5.0  # Coût fixe d'une revue manuelle

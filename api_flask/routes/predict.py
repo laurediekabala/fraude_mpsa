@@ -1,3 +1,5 @@
+# routes/predict.py
+
 from flask import Blueprint, request, jsonify
 from services.prediction_service import predict_instance
 from services.decision_service import decision_rule
@@ -7,37 +9,50 @@ import os
 
 predict_bp = Blueprint("predict", __name__)
 
-# Utiliser un chemin relatif au fichier courant
 config_path = os.path.join(os.path.dirname(__file__), "..", "config", "business.yaml")
-with open(config_path) as f:
+with open(config_path, "r") as f:
     business = yaml.safe_load(f)
 
 @predict_bp.route("", methods=["POST"])
 def predict():
     try:
         data = request.json
-        
         if not data:
-            return jsonify({"error": "Données JSON vides"}), 400
+            return jsonify({"error": "JSON vide"}), 400
 
-        p = predict_instance(data)
+        # -------------------------
+        # Probabilité
+        # -------------------------
+        p = float(predict_instance(data))
+        p = min(max(p, 0.0), 1.0)
+
+        # -------------------------
+        # Décision métier
+        # -------------------------
         decision = decision_rule(
             p,
             business["thresholds"]["accept"],
-            business["thresholds"]["reject"]
+            business["thresholds"]["review"]
         )
 
-        # Passer la probabilité et le montant au service de coût pour dynamicité
-        amount = data.get("amount", 0)
-        cost = compute_cost(decision, business["costs"], probability=p, amount=amount)
+        # -------------------------
+        # Coût attendu
+        # -------------------------
+        amount = data.get("amount", 0.0)
+        cost = compute_cost(
+            decision,
+            business["costs"],
+            probability=p,
+            amount=amount
+        )
 
         return jsonify({
             "probability": p,
             "decision": decision,
-            "estimated_cost": cost
+            "estimated_cost": round(cost, 6)
         })
+
     except Exception as e:
-        print(f"❌ Erreur dans /predict : {e}")
         import traceback
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
