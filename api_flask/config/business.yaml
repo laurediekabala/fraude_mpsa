@@ -3,7 +3,7 @@
 # ======================================================
 
 thresholds:
-  accept: 0.30     # En dessous → ACCEPT
+  accept: 0.20     # En dessous → ACCEPT
   review: 0.70     # Entre accept et review → REVIEW
                    # Au-dessus → REJECT
 
